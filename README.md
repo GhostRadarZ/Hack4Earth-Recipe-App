@@ -1,1 +1,1 @@
-#recipe-app project
+recipe-app project
