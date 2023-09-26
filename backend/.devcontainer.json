@@ -1,6 +1,6 @@
 {
     "name": "recipe-app-backend",
-    "workspaceFolder": "/backend",
+    "workspaceFolder": "/recipe-app/backend",
     "dockerComposeFile": "../compose.yaml",
     "service": "backend",
     "customizations": {
