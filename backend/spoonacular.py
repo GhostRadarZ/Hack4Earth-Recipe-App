@@ -60,6 +60,22 @@ def search_food_products(query: str) -> dict:
 
     return response.json()
 
+def search_ingredients(query: str) -> dict:
+    """ Search for simple whole foods. 
+    
+    Arguments:
+    query -- a query string 
+    """
+
+    endpoint = "food/ingredients/search"
+    data = {
+        "query": query
+    }
+
+    response = requests.get(url + endpoint, params=data, headers=headers)
+
+    return response.json()
+
 
 
 
