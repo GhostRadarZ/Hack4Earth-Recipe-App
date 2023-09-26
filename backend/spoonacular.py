@@ -31,4 +31,36 @@ def search_recipes(query: str) -> dict:
 
     return response.json()["results"]
 
+def get_grocery_by_upc(upc: str) -> dict:
+    """ Returns data about the grocery product the UPC identifies.
+
+    Arguments:
+    upc -- the twelve digit UPC code 
+    """
+    
+    endpoint = f"food/products/upc/{upc}"
+
+    response = requests.get(url + endpoint, headers=headers)
+
+    return response.json()
+
+def search_food_products(query: str) -> dict:
+    """ Searches for packaged food products. 
+    
+    Arguments:
+    query -- a query string which the search is based on
+    """
+
+    endpoint = "food/products/search"
+    data = {
+        "query": query
+    }
+
+    response = requests.get(url + endpoint, params=data, headers=headers)
+
+    return response.json()
+
+
+
+
     

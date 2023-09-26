@@ -36,6 +36,18 @@ def get_product_by_upc(upc: str) -> dict:
     product = spoonacular.get_grocery_by_upc(upc)
     return product
 
+@app.get("/food/search/{query}")
+def search_food_products(query: str) -> dict:
+    """ Searches for packaged food products. 
+    
+    Arguments:
+    query -- a query string which the search is based on
+    """
+
+    return spoonacular.search_food_products(query)
+
+
+
 
     
 
