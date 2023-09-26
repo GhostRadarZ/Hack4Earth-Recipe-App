@@ -14,6 +14,8 @@ headers = {
 	"X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
 }
 
+# Functions related to recipes
+# --------------------------------------------------
 
 def search_recipes(query: str) -> dict:
     """Searches recipes given the query string 
@@ -31,18 +33,22 @@ def search_recipes(query: str) -> dict:
 
     return response.json()["results"]
 
-def get_grocery_by_upc(upc: str) -> dict:
-    """ Returns data about the grocery product the UPC identifies.
 
-    Arguments:
-    upc -- the twelve digit UPC code 
-    """
+def get_recipe(id: int) -> dict:
+    """ Use a recipe id to get full info about a recipe. 
     
-    endpoint = f"food/products/upc/{upc}"
+    Arguments:
+    id -- a spoonacular recipe id
+    """
+
+    endpoint = f"recipes/{id}/information"
 
     response = requests.get(url + endpoint, headers=headers)
 
     return response.json()
+
+# Functions related to packaged grocery products
+# --------------------------------------------------
 
 def search_food_products(query: str) -> dict:
     """ Searches for packaged food products. 
@@ -60,6 +66,23 @@ def search_food_products(query: str) -> dict:
 
     return response.json()
 
+def get_grocery_by_upc(upc: str) -> dict:
+    """ Returns data about the grocery product the UPC identifies.
+
+    Arguments:
+    upc -- the twelve digit UPC code 
+    """
+    
+    endpoint = f"food/products/upc/{upc}"
+
+    response = requests.get(url + endpoint, headers=headers)
+
+    return response.json()
+
+
+# Functions related to ingredients
+# --------------------------------------------------
+
 def search_ingredients(query: str) -> dict:
     """ Search for simple whole foods. 
     
@@ -75,19 +98,3 @@ def search_ingredients(query: str) -> dict:
     response = requests.get(url + endpoint, params=data, headers=headers)
 
     return response.json()
-
-def get_recipe(id: int) -> dict:
-    """ Use a recipe id to get full info about a recipe. 
-    
-    Arguments:
-    id -- a spoonacular recipe id
-    """
-
-    endpoint = f"recipes/{id}/information"
-
-    response = requests.get(url + endpoint, headers=headers)
-
-    return response.json()
-
-
-    
