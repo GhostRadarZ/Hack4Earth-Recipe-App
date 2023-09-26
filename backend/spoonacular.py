@@ -76,7 +76,18 @@ def search_ingredients(query: str) -> dict:
 
     return response.json()
 
+def get_recipe(id: int) -> dict:
+    """ Use a recipe id to get full info about a recipe. 
+    
+    Arguments:
+    id -- a spoonacular recipe id
+    """
 
+    endpoint = f"recipes/{id}/information"
+
+    response = requests.get(url + endpoint, headers=headers)
+
+    return response.json()
 
 
     

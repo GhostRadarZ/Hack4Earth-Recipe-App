@@ -48,7 +48,7 @@ def search_food_products(query: str) -> dict:
 
     return spoonacular.search_food_products(query)
 
-@app.get("food/ingredient/search/{query}")
+@app.get("/food/ingredient/search/{query}")
 def search_ingredients(query: str) -> dict:
     """ Search for simple whole foods. 
     
@@ -57,6 +57,18 @@ def search_ingredients(query: str) -> dict:
     """
 
     return spoonacular.search_ingredients(query)
+
+@app.get("/recipes/info/{id}")
+def get_recipe(id: int) -> dict:
+    """ Use a recipe id to get full info about a recipe. 
+    
+    Arguments:
+    id -- a spoonacular recipe id
+    """
+
+    return spoonacular.get_recipe(id)
+
+
 
 
 
