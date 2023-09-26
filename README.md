@@ -8,8 +8,8 @@ A recipe app in which you can store recipes and ingredients.
 
 ## Useful Links
 
-[Spoonacular API Documentaion](https://spoonacular.com/food-api/docs)
-[FastAPI Documentation](https://fastapi.tiangolo.com/)
+* [Spoonacular API Documentaion](https://spoonacular.com/food-api/docs)
+* [FastAPI Documentation](https://fastapi.tiangolo.com/)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
