@@ -1,0 +1,12 @@
+{
+    "name": "recipe-app-frontend",
+    "workspaceFolder": "/recipe-app/frontend",
+    "dockerComposeFile": "../compose.yaml",
+    "service": "frontend",
+    "customizations": {
+      "vscode": {
+        "extensions": ["ecmel.vscode-html-css"]
+      }
+    },
+    "forwardPorts": [3000]
+}

@@ -1,18 +1,31 @@
 services:
 
+  mongo:
+    build: mongodb/
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root 
+      MONGO_INITDB_ROOT_PASSWORD: pswd
+      MONGO_INITDB_DATABASE: recipe-management
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb:/data/db
+    
+
   backend:
     build: backend/
     ports: 
       - "8000:8000"
     volumes: 
-      - ./backend:/backend
+      - .:/recipe-app/
+    depends_on:
+      - mongo
 
   frontend:
     build: frontend/
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/frontend
+      - .:/recipe-app/
     depends_on:
       - backend
-

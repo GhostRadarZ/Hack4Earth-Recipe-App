@@ -11,7 +11,7 @@ ARG PORT=8000
 ENV PORT $PORT
 
 # WORKDIR creates the directory and changes it to the current working directory
-WORKDIR /frontend
+WORKDIR /recipe-app/backend
 
 # RUN is an image build step
 # First we update the package manager and install necessary packages
