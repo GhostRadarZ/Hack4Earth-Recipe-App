@@ -17,7 +17,7 @@ ARG NODE_ENV=dev
 ENV NODE_ENV $NODE_ENV
 
 # WORKDIR creates the directory and changes it to the current working directory
-WORKDIR /frontend
+WORKDIR /recipe-app/frontend
 
 # RUN is an image build step
 # First we update the package manager

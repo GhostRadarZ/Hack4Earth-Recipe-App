@@ -11,7 +11,7 @@ ARG PORT=8000
 ENV PORT $PORT
 
 # WORKDIR creates the directory and changes it to the current working directory
-WORKDIR /recipe-app
+WORKDIR /recipe-app/backend
 
 # RUN is an image build step
 # First we update the package manager and install necessary packages
@@ -27,8 +27,6 @@ RUN pip install -r requirements.txt
 # Copy the source code from the host to the image
 # We do this at the end as it frequently changes
 COPY . .
-
-WORKDIR /recipe-app/backend
 
 # Exposes the given port
 EXPOSE $PORT
