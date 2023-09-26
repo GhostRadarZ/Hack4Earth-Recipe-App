@@ -16,7 +16,7 @@ services:
     ports: 
       - "8000:8000"
     volumes: 
-      - ./backend:/backend
+      - ../Hack4Earth:/recipe-app/
     depends_on:
       - mongo
 
@@ -25,6 +25,6 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/frontend
+      - ../Hack4Earth:/recipe-app/
     depends_on:
       - backend
