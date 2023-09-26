@@ -6,17 +6,18 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root 
       MONGO_INITDB_ROOT_PASSWORD: pswd
       MONGO_INITDB_DATABASE: recipe-management
-    volumes:
-      - ./mongodb:/data/db
     ports:
       - "27017:27017"
+    volumes:
+      - ./mongodb:/data/db
+    
 
   backend:
     build: backend/
     ports: 
       - "8000:8000"
     volumes: 
-      - ./backend:/recipe-app/backend
+      - .:/recipe-app/
     depends_on:
       - mongo
 
@@ -25,6 +26,6 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/recipe-app/frontend
+      - .:/recipe-app/
     depends_on:
       - backend
