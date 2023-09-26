@@ -10,6 +10,7 @@ A recipe app in which you can store recipes and ingredients.
 
 * [Spoonacular API Documentaion](https://spoonacular.com/food-api/docs)
 * [FastAPI Documentation](https://fastapi.tiangolo.com/)
+* [Getting Started with MongoDB and FastAPI](https://www.mongodb.com/developer/languages/python/python-quickstart-fastapi/)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
