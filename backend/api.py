@@ -6,6 +6,7 @@ import requests
 # Local Imports
 import spoonacular
 
+
 app = FastAPI()
 
 @app.get("/")
@@ -16,7 +17,7 @@ async def root():
 # --------------------------------------------------
 
 @app.get("/recipes/search/{query}")
-def get_recipes(query: str) -> dict:
+def get_recipes(query: str):
     """Returns a list of recipe results based on the query. 
     
     Arguments:
@@ -25,10 +26,10 @@ def get_recipes(query: str) -> dict:
 
     recipes = spoonacular.search_recipes(query)
 
+
     # Return the data if there are results
-    if recipes:
-        return {"msg": recipes}
-    return {"msg": "none"}
+    return recipes
+    
 
 @app.get("/recipes/info/{id}")
 def get_recipe(id: int) -> dict:
@@ -71,7 +72,7 @@ def get_product_by_upc(upc: str) -> dict:
 # --------------------------------------------------
 
 @app.get("/food/ingredient/search/{query}")
-def search_ingredients(query: str) -> dict:
+def search_ingredients(query: str):
     """ Search for simple whole foods. 
     
     Arguments:
@@ -79,6 +80,15 @@ def search_ingredients(query: str) -> dict:
     """
 
     return spoonacular.search_ingredients(query)
+
+# Functions related to displaying ingredients
+# -----------------------------------------------------
+
+
+
+# Functions related to saving ingredients to database
+# -----------------------------------------------------
+
 
 
 

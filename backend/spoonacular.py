@@ -31,6 +31,8 @@ def search_recipes(query: str) -> dict:
     query_string = {"query":query}
     response = requests.get(url + endpoint, headers=headers, params=query_string)
 
+    
+    # Returns list of dictionaries, each have id, title and image keys
     return response.json()["results"]
 
 
@@ -44,6 +46,7 @@ def get_recipe(id: int) -> dict:
     endpoint = f"recipes/{id}/information"
 
     response = requests.get(url + endpoint, headers=headers)
+
 
     return response.json()
 
@@ -97,4 +100,7 @@ def search_ingredients(query: str) -> dict:
 
     response = requests.get(url + endpoint, params=data, headers=headers)
 
-    return response.json()
+    results = response.json()['results']
+
+    # Returns list of dictionaries, each have id, name and image keys
+    return results
