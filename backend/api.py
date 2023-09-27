@@ -5,9 +5,16 @@ import requests
 
 # Local Imports
 import spoonacular
-
+from models.ingredient import Ingredient
 
 app = FastAPI()
+
+# @app.on_event("startup")
+# def connect_db():
+
+#@app.on_event("shutdown")
+#def shutdown_db():
+
 
 @app.get("/")
 async def root():
@@ -80,6 +87,17 @@ def search_ingredients(query: str):
     """
 
     return spoonacular.search_ingredients(query)
+
+@app.get("/food/ingredients/info/{id}")
+def get_ingredient(id: int) -> Ingredient:
+    """ Get an ingredient with the matching id.
+    
+    Arguments:
+    id -- the spoonacular id of the ingredient
+    """
+
+    result = spoonacular.get_ingredient(id)
+    return Ingredient.from_external_data(result)
 
 # Functions related to displaying ingredients
 # -----------------------------------------------------

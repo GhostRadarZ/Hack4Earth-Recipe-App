@@ -104,3 +104,19 @@ def search_ingredients(query: str) -> dict:
 
     # Returns list of dictionaries, each have id, name and image keys
     return results
+
+def get_ingredient(id: str) -> dict:
+    """ Get ingredient information based on id.
+    
+    Arguments:
+    id -- a valid spoonacular id for an ingredient 
+    """
+
+    endpoint = f"food/ingredients/{id}/information"
+    response = requests.get(url + endpoint, headers=headers)
+
+    print(response)
+
+    return response.json()
+    
+# def create_recipe_object():
