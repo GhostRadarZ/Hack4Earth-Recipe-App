@@ -32,7 +32,7 @@ class RecipeDatabase():
         self._db = self._client.recipe_management
 
 
-    def create(self, model: BaseModel, collection: str=None):
+    def create(self, model: BaseModel, collection: str=None) -> str:
         """ Saves the given model into the database. 
 
         specifying collection is optional if the base model is known
@@ -41,6 +41,9 @@ class RecipeDatabase():
         Arguments:
         model - one of the data models we use (i.e Recipe)
         collection (optional) - the collection to store the model in
+
+        Returns:
+        str -- the id of the created document
 
         Raises:
         ValueError -- collection arg was not provided
@@ -58,7 +61,7 @@ class RecipeDatabase():
             
         # Add the model to the collection
         insert = self._db[collection].insert_one(model)
-        print(insert.inserted_id)
+        return insert
 
     
     def read(self, id: int, collection: str):
@@ -96,6 +99,5 @@ class RecipeDatabase():
         
         TO BE IMPLEMENTED
         """
-
-
-   
+        ...
+        
