@@ -21,9 +21,9 @@ class MongoDatabase():
     def _set_mongo_uri(self):
         # check if the uri was set through the env variable
         # otherwise use default
-        self._mongo_uri = os.getenv('RECIPE_APP_MONGO_URI') | "mongodb://root:pswd@mongo:27017/"
+        env_uri = os.getenv("RECIPE_APP_MONGO_URI")
+        self._mongo_uri = env_uri if env_uri else "mongodb://root:pswd@mongo:27017/"
         
-
     def _connect(self):
         # Connects to the recipe management database
         self._client = MongoClient(self._mongo_uri)
