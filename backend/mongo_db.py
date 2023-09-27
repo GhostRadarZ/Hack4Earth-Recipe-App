@@ -8,11 +8,13 @@ from models.ingredient import Ingredient
 from models.recipe import Recipe
 import os
 
+from typing import List
+
 from pydantic import BaseModel
 
 from pymongo import MongoClient
 
-class MongoDatabase():
+class RecipeDatabase():
 
     def __init__(self):
         self._set_mongo_uri()
@@ -23,7 +25,7 @@ class MongoDatabase():
         # otherwise use default
         env_uri = os.getenv("RECIPE_APP_MONGO_URI")
         self._mongo_uri = env_uri if env_uri else "mongodb://root:pswd@mongo:27017/"
-        
+
     def _connect(self):
         # Connects to the recipe management database
         self._client = MongoClient(self._mongo_uri)
@@ -38,7 +40,7 @@ class MongoDatabase():
 
         Arguments:
         model - one of the data models we use (i.e Recipe)
-        collection - the collection to store the model in
+        collection (optional) - the collection to store the model in
 
         Raises:
         ValueError -- collection arg was not provided
@@ -59,15 +61,38 @@ class MongoDatabase():
         print(insert.inserted_id)
 
     
-    def read(id: int, collection: str):
-        """ reads the given document 
+    def read(self, id: int, collection: str):
+        """ reads the given document matching the id in the given collection
         
         TO BE IMPLEMENTED
         """ 
         ...
 
-    def delete(id: int, collection: str):
+    def delete(self, id: int, collection: str):
         """ deletes the document with the given id in the given collection. 
+        
+        TO BE IMPLEMENTED
+        """
+
+    def get_recipes_by_ingredients(self, ingredients: set):
+        """ finds all recipes that are possible to make with the given ingredients.
+        
+        Arguments:
+        ingredients -- a set (or list?) of ingredients
+
+        TO BE IMPLEMENTED
+        """
+        ...
+
+    def retrieve_user_recipes(self, user_id: str) -> List[Recipe]:
+        """ retrieves all the stored recipes of a user
+        
+        TO BE IMPLEMENTED
+        """
+        ...
+
+    def retrieve_user_ingredients(self, user_id: str) -> List[Ingredient]:
+        """ retrieves all the stored ingredients of a user. 
         
         TO BE IMPLEMENTED
         """
