@@ -8,14 +8,14 @@ import spoonacular
 from models.ingredient import Ingredient
 from models.recipe import Recipe
 
-from mongo_db import MongoDatabase
+from mongo_db import RecipeDatabase
 
 app = FastAPI()
 
 @app.on_event("startup")
 def connect_db():
     """ Connects to the MongoDB recipe-management database. """
-    app.db = MongoDatabase()
+    app.db: RecipeDatabase = RecipeDatabase()
 
 
 @app.get("/")
@@ -51,6 +51,7 @@ def get_recipe(id: int) -> Recipe:
     recipe = Recipe.from_external_data(result)
 
     # Save recipe to database?
+    print(app.db.create(recipe))
 
 
 # Functions related to packaged grocery products
