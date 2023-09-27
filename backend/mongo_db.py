@@ -71,11 +71,15 @@ class RecipeDatabase():
         """ 
         ...
 
-    def delete(self, id: int, collection: str):
+    def delete(self, id_del: int, collection: str):
         """ deletes the document with the given id in the given collection. 
         
         TO BE IMPLEMENTED
         """
+        self._db[collection].delete_one({id: id_del})
+        print("deleted")
+
+        
 
     def get_recipes_by_ingredients(self, ingredients: set):
         """ finds all recipes that are possible to make with the given ingredients.
@@ -100,4 +104,3 @@ class RecipeDatabase():
         TO BE IMPLEMENTED
         """
         ...
-        
