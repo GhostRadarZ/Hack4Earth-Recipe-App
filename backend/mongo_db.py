@@ -60,7 +60,7 @@ class RecipeDatabase():
                 raise ValueError("Unknown model, the collection argument must be provided.")
             
         # Add the model to the collection
-        insert = self._db[collection].insert_one(model)
+        insert = self._db[collection].insert_one(model.model_dump())
         return insert
 
     
