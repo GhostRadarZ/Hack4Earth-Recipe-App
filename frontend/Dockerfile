@@ -17,7 +17,7 @@ ARG NODE_ENV=dev
 ENV NODE_ENV $NODE_ENV
 
 # WORKDIR creates the directory and changes it to the current working directory
-WORKDIR /recipe-app/frontend
+WORKDIR /recipe-app
 
 # RUN is an image build step
 # First we update the package manager
@@ -26,11 +26,12 @@ RUN apt-get update && apt-get install
 # Installs the latest version of npm to get the latest security fixes
 RUN npm i npm@latest -g
 
-# Copies over the npm package files
-COPY package.json package-lock.json ./
+WORKDIR /recipe-app/frontend/recipe-web
 
-# npm ci will delete the node_modules and run a clean install and cache clean will remove all data inside the cache folder
-RUN npm i && npm cache clean --force
+# Copies over the npm package files
+COPY recipe-web/package.json recipe-web/package-lock.json ./
+
+RUN npm install
 
 # Installing dependencies in a separate location can be beneficial for local development and production, as it allows for easier bind mounting of the application.
 # Additionally, we add the .bin folder under node_modules to the path so that it can find nodemon or react scripts
@@ -43,6 +44,7 @@ COPY . .
 # Exposes the given port
 EXPOSE $PORT
 
+
 # Runs a command after the image is built
-# This runs the nodejs server with hot reload
-CMD npx nodemon index.js localhost $PORT
+# Runs our server
+CMD npm run dev
