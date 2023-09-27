@@ -6,6 +6,7 @@ import requests
 # Local Imports
 import spoonacular
 from models.ingredient import Ingredient
+from models.recipe import Recipe
 
 app = FastAPI()
 
@@ -39,14 +40,15 @@ def get_recipes(query: str):
     
 
 @app.get("/recipes/info/{id}")
-def get_recipe(id: int) -> dict:
+def get_recipe(id: int) -> Recipe:
     """ Use a recipe id to get full info about a recipe. 
     
     Arguments:
     id -- a spoonacular recipe id
     """
 
-    return spoonacular.get_recipe(id)
+    result = spoonacular.get_recipe(id)
+    return Recipe.from_external_data(result)
 
 
 # Functions related to packaged grocery products
