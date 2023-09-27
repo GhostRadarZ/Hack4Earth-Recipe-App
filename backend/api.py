@@ -8,13 +8,14 @@ import spoonacular
 from models.ingredient import Ingredient
 from models.recipe import Recipe
 
+from mongo_db import MongoDatabase
+
 app = FastAPI()
 
-# @app.on_event("startup")
-# def connect_db():
-
-#@app.on_event("shutdown")
-#def shutdown_db():
+@app.on_event("startup")
+def connect_db():
+    """ Connects to the MongoDB recipe-management database. """
+    app.db = MongoDatabase()
 
 
 @app.get("/")
@@ -34,7 +35,6 @@ def get_recipes(query: str):
 
     recipes = spoonacular.search_recipes(query)
 
-
     # Return the data if there are results
     return recipes
     
@@ -48,7 +48,9 @@ def get_recipe(id: int) -> Recipe:
     """
 
     result = spoonacular.get_recipe(id)
-    return Recipe.from_external_data(result)
+    recipe = Recipe.from_external_data(result)
+
+    # Save recipe to database?
 
 
 # Functions related to packaged grocery products
@@ -108,17 +110,3 @@ def get_ingredient(id: int) -> Ingredient:
 
 # Functions related to saving ingredients to database
 # -----------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
