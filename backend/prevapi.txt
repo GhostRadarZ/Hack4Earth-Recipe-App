@@ -1,0 +1,57 @@
+from fastapi import FastAPI
+import requests
+
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
+
+# MongoDB
+# Password: bodoaaronpatrick
+
+uri = "mongodb+srv://bodo010501:<bodoaaronpatrick>@hack4earth-recipe-app.nkikwnc.mongodb.net/?retryWrites=true&w=majority"
+
+# Create a new client and connect to the server
+
+client = MongoClient(uri, server_api=ServerApi('1'))
+# Send a ping to confirm a successful connection
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
+
+
+# Spoonacular
+url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch"
+
+
+
+headers = {
+	"X-RapidAPI-Key": "148bc7ae7emsh9ce2312cdf4c7e7p188d53jsn20da7f80baeb",
+	"X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
+}
+
+
+
+
+app = FastAPI()
+
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World s"}
+
+@app.get("/getrecipe/{recipe}")
+def getrecipe(recipe):
+    querystring = {"query":recipe}
+    response = requests.get(url, headers=headers, params=querystring)
+    if(len(response.json()["results"]) == 0):
+        return{'msg': "none"}
+    else:
+        
+        
+        return {'msg': response.json()["results"]}
+    
+    
+    return {'msg': response.json()["results"]}
+
+
