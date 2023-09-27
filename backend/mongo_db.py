@@ -1,4 +1,8 @@
-""" A MongoDB class for interfacing with the recipe-management database """
+""" A MongoDB class for interfacing with the recipe-management database 
+
+PyMongo Docs:
+https://pymongo.readthedocs.io/en/stable/tutorial.html
+"""
 
 from models.ingredient import Ingredient
 from models.recipe import Recipe
