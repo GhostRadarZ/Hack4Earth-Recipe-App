@@ -37,7 +37,7 @@ class RecipeDatabase():
         # print("bye")
 
 
-    def create(self, data: dict, collection: str=None) -> str:
+    def create(self, data: dict, collection: str=None):
         """ Saves the given data into the database. 
 
         Arguments:
@@ -45,7 +45,7 @@ class RecipeDatabase():
         collection (optional) - the collection to store the document in
 
         Returns:
-        str -- the id of the created document
+        The document that was created
 
         """
            
@@ -57,9 +57,25 @@ class RecipeDatabase():
     def read(self, id: int, collection: str):
         """ reads the given document matching the id in the given collection
         
-        TO BE IMPLEMENTED
+        Arguments:
+        id -- the id of the document 
+        collection -- the collection the document is in
+
+        Returns:
+        the document retrieved from the database
+
+        Raises:
+        ValueError - if the document with the id does not exist
         """ 
-        ...
+        doc = self._db[collection].find_one({"_id": id})
+        if doc:
+            print(f'Found document with {id}')
+            return doc
+        
+        raise ValueError(f'Document with id {id} is not in the {collection} collection')
+
+
+        
 
     def delete(self, id_del: int, collection: str):
         """ deletes the document with the given id in the given collection. 
@@ -67,7 +83,8 @@ class RecipeDatabase():
         TO BE IMPLEMENTED
         """
         result = self._db[collection].delete_one({"id": id_del})
-        print("deleted")
+        print(result)
+        print(f"Deleted document {id_del} from {collection}")
 
         
 
@@ -102,18 +119,3 @@ class RecipeDatabase():
         """
         ...
 
-this = RecipeDatabase()
-this._connect
-
-
-this.create({
-    "id": 32004,
-    "name": "macaroni and cheese",
-    "image": "macaroni-and-cheese.png"
-  }, "recipes")
-
-this.create({
-    "id": 32005,
-    "name": "macaroni and cheee",
-    "image": "macaroni-and-cheese.png"
-  }, "recipes")
