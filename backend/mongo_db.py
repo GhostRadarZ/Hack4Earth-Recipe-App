@@ -37,28 +37,20 @@ class RecipeDatabase():
         # print("bye")
 
 
-    def create(self, model: dict, collection: str=None) -> str:
-        """ Saves the given model into the database. 
-
-        specifying collection is optional if the base model is known
-        (might remove this to simplify the code)
+    def create(self, data: dict, collection: str=None) -> str:
+        """ Saves the given data into the database. 
 
         Arguments:
-        model - one of the data models we use (i.e Recipe)
-        collection (optional) - the collection to store the model in
+        data - a dict of data to be saved
+        collection (optional) - the collection to store the document in
 
         Returns:
         str -- the id of the created document
 
-        Raises:
-        ValueError -- collection arg was not provided
         """
-
-        # Branches on the type of model (might remove this)
-        
-            
+           
         # Add the model to the collection
-        insert = self._db[collection].insert_one(model)
+        insert = self._db[collection].insert_one(data)
         return insert
 
     
