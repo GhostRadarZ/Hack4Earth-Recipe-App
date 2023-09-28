@@ -98,10 +98,10 @@ class RecipeDatabase():
         """
         ...
 
-    def retrieve_user_recipes(self, user_id: str) -> List[Recipe]:
+    def retrieve_user_recipes(self) -> List[Recipe]:
         """ retrieves all the stored recipes of a user
         
-        TO BE IMPLEMENTED
+        add user_id: str later when we have multiple users
         """
         list_of_recipes = []
         recipes = self._db["recipes"]
@@ -112,10 +112,16 @@ class RecipeDatabase():
         return list_of_recipes
 
 
-    def retrieve_user_ingredients(self, user_id: str) -> List[Ingredient]:
+    def retrieve_user_ingredients(self) -> List[Ingredient]:
         """ retrieves all the stored ingredients of a user. 
         
-        TO BE IMPLEMENTED
+        add user_id: str later when we have multiple users
         """
-        ...
+        list_of_ingredients = []
+        recipes = self._db["ingredients"]
+
+        for x in recipes.find():
+            list_of_ingredients.append(x)
+         
+        return list_of_ingredients
 
