@@ -1,4 +1,4 @@
-backend/__pycache__/
+__pycache__/
 frontend/node_modules/
 mongodb/
 git_creds.sh
