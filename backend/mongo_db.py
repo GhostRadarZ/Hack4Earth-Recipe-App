@@ -30,9 +30,14 @@ class RecipeDatabase():
         # Connects to the recipe management database
         self._client = MongoClient(self._mongo_uri)
         self._db = self._client.recipe_management
+        
+        # print("hellobye")
+        # this = self._db.list_collection_names
+        # print(this)
+        # print("bye")
 
 
-    def create(self, model: BaseModel, collection: str=None) -> str:
+    def create(self, model: dict, collection: str=None) -> str:
         """ Saves the given model into the database. 
 
         specifying collection is optional if the base model is known
@@ -50,17 +55,10 @@ class RecipeDatabase():
         """
 
         # Branches on the type of model (might remove this)
-        if isinstance(model, Recipe):
-            collection = "recipes"
-        elif isinstance(model, Ingredient):
-            collection = "ingredients"
-        # If model is not known, rely on collection kwarg
-        else: 
-            if not collection:
-                raise ValueError("Unknown model, the collection argument must be provided.")
+        
             
         # Add the model to the collection
-        insert = self._db[collection].insert_one(model.model_dump())
+        insert = self._db[collection].insert_one(model)
         return insert
 
     
@@ -71,13 +69,17 @@ class RecipeDatabase():
         """ 
         ...
 
-    def delete(self, id: int, collection: str):
+    def delete(self, id_del: int, collection: str):
         """ deletes the document with the given id in the given collection. 
         
         TO BE IMPLEMENTED
         """
+        result = self._db[collection].delete_one({"id": id_del})
+        print("deleted")
 
-    def get_recipes_by_ingredients(self, ingredients: set):
+        
+
+    def get_recipes_by_ingredients(self, ingredients: list):
         """ finds all recipes that are possible to make with the given ingredients.
         
         Arguments:
@@ -92,7 +94,14 @@ class RecipeDatabase():
         
         TO BE IMPLEMENTED
         """
-        ...
+        list_of_recipes = []
+        recipes = self._db["recipes"]
+
+        for x in recipes.find():
+            list_of_recipes.append(x)
+        
+        return list_of_recipes
+
 
     def retrieve_user_ingredients(self, user_id: str) -> List[Ingredient]:
         """ retrieves all the stored ingredients of a user. 
@@ -100,3 +109,19 @@ class RecipeDatabase():
         TO BE IMPLEMENTED
         """
         ...
+
+this = RecipeDatabase()
+this._connect
+
+
+this.create({
+    "id": 32004,
+    "name": "macaroni and cheese",
+    "image": "macaroni-and-cheese.png"
+  }, "recipes")
+
+this.create({
+    "id": 32005,
+    "name": "macaroni and cheee",
+    "image": "macaroni-and-cheese.png"
+  }, "recipes")
