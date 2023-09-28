@@ -30,6 +30,11 @@ class RecipeDatabase():
         # Connects to the recipe management database
         self._client = MongoClient(self._mongo_uri)
         self._db = self._client.recipe_management
+        
+        # print("hellobye")
+        # this = self._db.list_collection_names
+        # print(this)
+        # print("bye")
 
 
     def create(self, model: BaseModel, collection: str=None) -> str:
@@ -76,7 +81,7 @@ class RecipeDatabase():
         
         TO BE IMPLEMENTED
         """
-        self._db[collection].delete_one({id: id_del})
+        result = self._db[collection].delete_one({"id": id_del})
         print("deleted")
 
         
@@ -104,3 +109,10 @@ class RecipeDatabase():
         TO BE IMPLEMENTED
         """
         ...
+
+this = RecipeDatabase()
+this._connect
+
+print(this._db.list_collection_names())
+
+this.delete(9003,"ingredients")
