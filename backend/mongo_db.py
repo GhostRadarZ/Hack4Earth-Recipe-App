@@ -37,7 +37,7 @@ class RecipeDatabase():
         # print("bye")
 
 
-    def create(self, model: BaseModel, collection: str=None) -> str:
+    def create(self, model: dict, collection: str=None) -> str:
         """ Saves the given model into the database. 
 
         specifying collection is optional if the base model is known
@@ -55,17 +55,10 @@ class RecipeDatabase():
         """
 
         # Branches on the type of model (might remove this)
-        if isinstance(model, Recipe):
-            collection = "recipes"
-        elif isinstance(model, Ingredient):
-            collection = "ingredients"
-        # If model is not known, rely on collection kwarg
-        else: 
-            if not collection:
-                raise ValueError("Unknown model, the collection argument must be provided.")
+        
             
         # Add the model to the collection
-        insert = self._db[collection].insert_one(model.model_dump())
+        insert = self._db[collection].insert_one(model)
         return insert
 
     
@@ -86,7 +79,7 @@ class RecipeDatabase():
 
         
 
-    def get_recipes_by_ingredients(self, ingredients: set):
+    def get_recipes_by_ingredients(self, ingredients: list):
         """ finds all recipes that are possible to make with the given ingredients.
         
         Arguments:
@@ -101,7 +94,14 @@ class RecipeDatabase():
         
         TO BE IMPLEMENTED
         """
-        ...
+        list_of_recipes = []
+        recipes = self._db["recipes"]
+
+        for x in recipes.find():
+            list_of_recipes.append(x)
+        
+        return list_of_recipes
+
 
     def retrieve_user_ingredients(self, user_id: str) -> List[Ingredient]:
         """ retrieves all the stored ingredients of a user. 
@@ -113,6 +113,15 @@ class RecipeDatabase():
 this = RecipeDatabase()
 this._connect
 
-print(this._db.list_collection_names())
 
-this.delete(9003,"ingredients")
+this.create({
+    "id": 32004,
+    "name": "macaroni and cheese",
+    "image": "macaroni-and-cheese.png"
+  }, "recipes")
+
+this.create({
+    "id": 32005,
+    "name": "macaroni and cheee",
+    "image": "macaroni-and-cheese.png"
+  }, "recipes")
